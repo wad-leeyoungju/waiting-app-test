@@ -46,4 +46,5 @@ public class OperationTimeSettingsService {
     return !operationTimeSettings.get(0).getOperationTimeSettingsData()
         .isSameOperationTimeForDays(operationTimeSettings.get(1).getOperationTimeSettingsData());
   }
+
 }
