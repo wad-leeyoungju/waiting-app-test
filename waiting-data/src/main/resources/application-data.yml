@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mysql://localhost:43306/waiting_local?sessionVariables=transaction_isolation='READ-COMMITTED'&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    username: waiting_app
+    password: waiting_password
+
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+
+  jpa:
+    generate-ddl: false
+    open-in-view: true
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+      dialect: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        # 신규 DB의 경우, spring.jpa.hibernate.dialect 에 설정된 값만으로는 부족한 경우가 있다.
+        dialect: org.hibernate.dialect.MySQLDialect
+        default_batch_fetch_size: 50
+
+  flyway:
+    enabled: true
+    out-of-order: true
+    locations: "classpath:db/migration,classpath:db/batch/{vendor}"
+
+logging:
+  level:
+    org.hibernate: INFO
+    org.hibarnate.hql.internal.ast.QueryTranslatorImpl: DEBUG
+    com.zaxxer.hikari.pool: INFO
+
+redis:
+  distributed-lock:
+    host: localhost
+    port: 46379
+    timeout: 100
+    connect-timeout: 100
+  cache:
+    host: localhost
+    port: 46377
+    timeout: 100
+    connect-timeout: 100

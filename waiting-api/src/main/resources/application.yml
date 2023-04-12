@@ -1,0 +1,34 @@
+server:
+  port: 8088
+  shutdown: graceful
+
+spring:
+  application:
+    name: catch-waiting-api
+
+  config:
+    import:
+      - application-data.yml
+      - application-client-pos.yml
+
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+  security:
+    user:
+      name: "wad"
+      password: "wAdc0rp#210"
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure: ERROR
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
