@@ -1,6 +1,9 @@
 package co.wadcorp.waiting.data.config;
 
-import com.querydsl.jpa.impl.JPAQuery;
+import static com.querydsl.jpa.JPQLTemplates.DEFAULT_ESCAPE;
+
+import com.querydsl.jpa.DefaultQueryHandler;
+import com.querydsl.jpa.JPQLTemplates;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -15,10 +18,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class DbBeanConfig {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager entityManager;
 
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
-        return new JPAQueryFactory(em);
+        return new JPAQueryFactory(
+            // querydsl transform를 사용할 때 NoSuchMethodError 이슈가 발생해 JPQLTemplates 를 별도로 지정함
+            // https://github.com/querydsl/querydsl/issues/3428
+            new JPQLTemplates(DEFAULT_ESCAPE, DefaultQueryHandler.DEFAULT) {},
+            entityManager
+        );
     }
 }

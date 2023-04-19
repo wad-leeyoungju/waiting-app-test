@@ -28,6 +28,7 @@ public enum ErrorCode {
     NO_MORE_THAN_THREE_TIMES("NO_MORE_THAN_THREE_TIMES", "웨이팅은 동시에 3회까지만 등록할 수 있습니다."),
     EXCEED_AVAILABLE_SEATS("EXCEED_AVAILABLE_SEATS", "입장 가능 인원을 초과하였습니다."),
     UNDER_AVAILABLE_SEATS("UNDER_AVAILABLE_SEATS", "최소 입장 가능 인원보다 작게 입력했습니다."),
+    EXCEEDING_ORDER_QUANTITY_PER_TEAM("EXCEEDING_ORDER_QUANTITY_PER_TEAM", "팀당 주문 가능 수량을 초과했어요."),
 
     /**
      * 웨이팅 미루기
@@ -60,6 +61,7 @@ public enum ErrorCode {
     ALREADY_UNDO_WAITING("ALREADY_UNDO_WAITING", "이미 되돌리기한 웨이팅 입니다. 다시 확인해주세요."),
     TIME_OVER_UNDO_AVAILABLE_TIME("TIME_OVER_UNDO_AVAILABLE_TIME", "되돌리기 할 수 있는 시간이 지났습니다. 다시 웨이팅 등록을 해주세요."),
     CANNOT_UNDO_CAUSE_SEAT_OPTIONS_MODIFIED("CANNOT_UNDO_CAUSE_SEAT_OPTIONS_MODIFIED", "매장 설정이 변경되어 되돌리기가 불가합니다. 다시 웨이팅을 등록해주세요."),
+    OUT_OF_STOCK("OUT_OF_STOCK", "재고 소진으로 주문 불가해요."),
 
     /**
      * 웨이팅 지연
@@ -88,6 +90,11 @@ public enum ErrorCode {
      * 공지사항
      */
     NOT_FOUND_NOTICE("NOT_FOUND_NOTICE", "공지사항을 찾을 수 없습니다."),
+
+    /**
+     * 주문/카테고리/메뉴
+     */
+    NOT_FOUND_MENU("NOT_FOUND_MENU", "메뉴 정보를 찾지 못했습니다."),
 
     /**
      * POS

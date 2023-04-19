@@ -14,6 +14,10 @@ public class ShopCustomerService {
 
     private final ShopCustomerRepository shopCustomerRepository;
 
+    public ShopCustomerEntity saveShopCustomer(ShopCustomerEntity shopCustomerEntity) {
+        return shopCustomerRepository.save(shopCustomerEntity);
+    }
+
     public ShopCustomerEntity getShopCustomerById(String shopId, Long customerSeq) {
         ShopCustomerId shopCustomerId = createShopCustomerId(shopId, customerSeq);
 

@@ -113,7 +113,7 @@ allprojects {
     extra.apply {
         set("sentryVersion", "6.11.0")
         set("libNhnCloudVersion", "0.0.3")
-        set("libUtilsVersion", "0.0.20")
+        set("libUtilsVersion", "0.0.21")
         set("libVaultVersion", "1.0.0")
     }
 

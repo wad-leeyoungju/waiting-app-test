@@ -71,8 +71,18 @@ public class AppException extends RuntimeException {
         setCode(httpStatus);
     }
 
+    public static AppException ofBadRequest(String message) {
+        return new AppException(HttpStatus.BAD_REQUEST, message);
+    }
+
+    public static AppException ofBadRequest(ErrorCode errorCode) {
+        return new AppException(HttpStatus.BAD_REQUEST, errorCode);
+    }
+
     public void setCode(HttpStatus httpStatus) {
         this.code = String.valueOf(httpStatus.value());
     }
+
+
 
 }

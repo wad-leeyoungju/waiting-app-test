@@ -7,6 +7,10 @@ import java.util.Optional;
 
 public interface WaitingRepository {
 
+    WaitingEntity save(WaitingEntity waitingEntity);
+
+    <S extends WaitingEntity> List<S> saveAll(Iterable<S> entities);
+
     List<WaitingEntity> findAll();
 
     Optional<WaitingEntity> findByWaitingId(String waitingId);
