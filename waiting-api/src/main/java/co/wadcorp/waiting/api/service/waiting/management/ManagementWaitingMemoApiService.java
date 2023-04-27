@@ -15,6 +15,7 @@ public class ManagementWaitingMemoApiService {
 
   @Transactional
   public WaitingMemoSaveResponse save(String shopId, WaitingMemoSaveServiceRequest request) {
+    System.out.println("conflict!!!");
     return WaitingMemoSaveResponse.of(
         waitingMemoService.save(request.toEntity(shopId))
     );
