@@ -50,6 +50,8 @@ public class ManagementStockApiService {
     List<String> menuIds = convert(menus, MenuEntity::getMenuId);
     List<StockEntity> stocks = stockQueryRepository.findAllBy(menuIds, operationDate);
 
+    System.out.println("occur confict!!!");
+
     return convertToMap(stocks, StockEntity::getMenuId);
   }
 
@@ -64,6 +66,7 @@ public class ManagementStockApiService {
   private Map<String, Set<String>> createCategoryMenuMap(List<CategoryEntity> categories) {
     List<String> categoryIds = convert(categories, CategoryEntity::getCategoryId);
     List<CategoryMenuEntity> categoryMenus = categoryMenuQueryRepository.findAllBy(categoryIds);
+    System.out.println("good!");
 
     return categoryMenus.stream()
         .collect(Collectors.groupingBy(
