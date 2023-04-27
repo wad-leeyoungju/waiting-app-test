@@ -1,7 +1,11 @@
 package co.wadcorp.waiting.data.query.displaymenu.dto;
 
 import co.wadcorp.waiting.data.support.Price;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 public class DisplayMenuNamePriceDto implements Comparable<DisplayMenuNamePriceDto> {
 
   private Long seq;
