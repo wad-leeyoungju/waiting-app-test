@@ -23,5 +23,6 @@ public class ManagementWaitingMemoApiService {
   @Transactional
   public void delete(String waitingId) {
     waitingMemoService.delete(waitingId);
+    System.out.println("how about this!?");
   }
 }
