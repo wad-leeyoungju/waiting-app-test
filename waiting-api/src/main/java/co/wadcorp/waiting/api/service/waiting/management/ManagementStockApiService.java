@@ -33,6 +33,8 @@ public class ManagementStockApiService {
     List<CategoryEntity> categories = categoryQueryRepository.findAllBy(shopId);
     Map<String, Set<String>> categoryMenuGroupingMap = createCategoryMenuMap(categories);
 
+    System.out.println("solve confict!!");
+
     List<MenuEntity> menus = menuQueryRepository.findAllBy(shopId);
     Map<String, MenuEntity> menuMap = convertToMap(menus, MenuEntity::getMenuId);
     Map<String, StockEntity> stockMap = createStockMap(menus, operationDate);
