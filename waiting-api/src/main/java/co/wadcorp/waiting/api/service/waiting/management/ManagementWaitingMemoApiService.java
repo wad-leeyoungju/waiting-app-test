@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 public class ManagementWaitingMemoApiService {
 
   public Object save(String shopId, Object serviceRequest) {
+    System.out.println("conflict!!!");
     return null;
   }
 
