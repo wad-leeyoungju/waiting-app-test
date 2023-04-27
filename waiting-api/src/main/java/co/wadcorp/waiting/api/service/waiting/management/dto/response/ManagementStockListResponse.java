@@ -1,7 +1,7 @@
 package co.wadcorp.waiting.api.service.waiting.management.dto.response;
 
 import co.wadcorp.waiting.data.domain.menu.MenuEntity;
-import co.wadcorp.waiting.data.domain.stock.CategoryEntity;
+import co.wadcorp.waiting.data.domain.menu.CategoryEntity;
 import co.wadcorp.waiting.data.domain.stock.StockEntity;
 import java.util.List;
 import java.util.Map;
