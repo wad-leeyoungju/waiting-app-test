@@ -67,4 +67,15 @@ public class WaitingService {
         operationDate);
   }
 
+  public boolean existWaitingTeamByShopId(String shopId, LocalDate operationDate) {
+    return waitingRepository.existsByShopIdAndWaitingStatusAndOperationDate(shopId,
+        WaitingStatus.WAITING, operationDate);
+  }
+
+  public boolean validWaitingTeamExists(String shopId, LocalDate operationDate) {
+    if (existWaitingTeamByShopId(shopId, operationDate)) {
+      throw new AppException(HttpStatus.BAD_REQUEST, ErrorCode.COULD_NOT_UPDATE_SETTINGS);
+    }
+    return false;
+  }
 }
