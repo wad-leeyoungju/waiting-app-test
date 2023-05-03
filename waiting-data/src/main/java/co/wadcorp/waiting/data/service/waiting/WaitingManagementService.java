@@ -1,11 +1,15 @@
 package co.wadcorp.waiting.data.service.waiting;
 
+import co.wadcorp.waiting.data.domain.settings.HomeSettingsEntity;
 import co.wadcorp.waiting.data.domain.settings.HomeSettingsRepository;
+import co.wadcorp.waiting.data.domain.settings.OptionSettingsEntity;
 import co.wadcorp.waiting.data.domain.settings.OptionSettingsRepository;
 import co.wadcorp.waiting.data.domain.waiting.*;
+import co.wadcorp.waiting.data.domain.waiting.validator.WaitingCheckSettingsBeforeUndoValidator;
 import co.wadcorp.waiting.data.domain.waiting.validator.WaitingShopIdValidator;
 import co.wadcorp.waiting.data.exception.AppException;
 import co.wadcorp.waiting.data.exception.ErrorCode;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -73,5 +77,38 @@ public class WaitingManagementService {
 
         waiting.noShow();
         return waitingHistoryRepository.save(transFromWaitingToHistory(waiting));
+    }
+
+    public WaitingHistoryEntity cancelByOutOfStock(String shopId, String waitingId) {
+        WaitingEntity waiting = findByWaitingId(waitingId);
+        WaitingShopIdValidator.validateWaitingSameShopId(shopId, waiting);
+
+        waiting.cancelByOutOfStock();
+        return waitingHistoryRepository.save(transFromWaitingToHistory(waiting));
+    }
+
+    public WaitingHistoryEntity undo(String shopId, String waitingId, LocalDate operationDate) {
+        WaitingEntity waiting = findByWaitingId(waitingId);
+        WaitingShopIdValidator.validateWaitingSameShopId(shopId, waiting);
+
+        checkIfSettingsModified(waiting);
+
+        List<WaitingEntity> waitingEntities = waitingRepository.findAllByCustomerSeqAndStatusToday(
+            waiting.getCustomerSeq(), WaitingStatus.WAITING, operationDate
+        );
+        waiting.undo(waitingEntities);
+        return waitingHistoryRepository.save(transFromWaitingToHistory(waiting));
+    }
+
+    private void checkIfSettingsModified(WaitingEntity waiting) {
+        HomeSettingsEntity homeSettingsEntity = homeSettingsRepository.findFirstByShopIdAndIsPublished(
+                waiting.getShopId(), true)
+            .orElseThrow(() -> new AppException(HttpStatus.BAD_REQUEST, "매장 설정 정보가 존재하지 않습니다."));
+        OptionSettingsEntity optionSettingsEntity = optionSettingsRepository.findFirstByShopIdAndIsPublished(
+                waiting.getShopId(), true)
+            .orElseThrow(() -> new AppException(HttpStatus.BAD_REQUEST, "인원옵션 설정 정보가 존재하지 않습니다."));
+
+        WaitingCheckSettingsBeforeUndoValidator.validate(waiting, homeSettingsEntity,
+            optionSettingsEntity);
     }
 }

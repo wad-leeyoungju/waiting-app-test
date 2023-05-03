@@ -4,5 +4,5 @@ import org.springframework.context.ApplicationEvent;
 
 import java.time.LocalDate;
 
-public record CanceledByShopEvent(String shopId, Long waitingHistorySeq, LocalDate operationDate) {
+public record CanceledByShopEvent(String shopId, Long waitingHistorySeq, LocalDate operationDate, String deviceId) {
 }

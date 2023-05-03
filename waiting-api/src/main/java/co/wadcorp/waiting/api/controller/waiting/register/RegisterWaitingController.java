@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,9 +45,11 @@ public class RegisterWaitingController {
    */
   @PostMapping(value = "/api/v1/shops/{shopId}/register/waiting")
   public ApiResponse<WaitingRegisterResponse> registerWaiting(@PathVariable String shopId,
+      @RequestHeader("X-REQUEST-ID") String deviceId,
       @Valid @RequestBody WaitingRegisterRequest waitingRegisterRequest) {
     return ApiResponse.ok(
-        waitingRegisterApiService.registerWaiting(shopId, OperationDateUtils.getOperationDateFromNow(), waitingRegisterRequest));
+        waitingRegisterApiService.registerWaiting(shopId,
+            OperationDateUtils.getOperationDateFromNow(), waitingRegisterRequest, deviceId));
   }
 
 }

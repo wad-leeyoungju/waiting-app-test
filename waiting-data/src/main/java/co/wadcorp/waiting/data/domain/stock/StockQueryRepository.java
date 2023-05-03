@@ -1,11 +1,37 @@
 package co.wadcorp.waiting.data.domain.stock;
 
+import static co.wadcorp.waiting.data.domain.stock.QStockEntity.stockEntity;
+
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
+@RequiredArgsConstructor
+@Repository
 public class StockQueryRepository {
 
-  public List<StockEntity> findAllBy(List<String> menuIds, LocalDate operationDate) {
-    return null;
+  private final JPAQueryFactory queryFactory;
+  public List<StockEntity> findAllBy(List<String> menuId, LocalDate operationDate) {
+    return queryFactory.select(stockEntity)
+        .from(stockEntity)
+        .where(
+            stockEntity.menuId.in(menuId),
+            stockEntity.operationDate.eq(operationDate)
+        )
+        .fetch();
   }
+
+  public List<StockEntity> findAllUsedStocksBy(List<String> menuId, LocalDate operationDate) {
+    return queryFactory.select(stockEntity)
+        .from(stockEntity)
+        .where(
+            stockEntity.menuId.in(menuId),
+            stockEntity.operationDate.eq(operationDate),
+            stockEntity.isUsedDailyStock.isTrue()
+        )
+        .fetch();
+  }
+
 }

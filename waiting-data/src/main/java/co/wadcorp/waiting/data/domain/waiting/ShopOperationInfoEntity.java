@@ -1,6 +1,7 @@
 package co.wadcorp.waiting.data.domain.waiting;
 
 import co.wadcorp.waiting.data.domain.settings.OperationTimeSettingsData.OperationTimeForDay;
+import co.wadcorp.waiting.data.domain.shop.operation.pause.RemoteAutoPauseInfo;
 import co.wadcorp.waiting.data.support.BaseEntity;
 import co.wadcorp.waiting.shared.util.ZonedDateTimeUtils;
 import jakarta.persistence.Column;
@@ -49,6 +50,15 @@ public class ShopOperationInfoEntity extends BaseEntity {
 
   @Column(name = "operation_end_date_time")
   private ZonedDateTime operationEndDateTime;
+
+  @Column(name = "remote_operation_start_date_time")
+  private ZonedDateTime remoteOperationStartDateTime;
+
+  @Column(name = "remote_operation_end_date_time")
+  private ZonedDateTime remoteOperationEndDateTime;
+
+  @Embedded
+  private RemoteAutoPauseInfo remoteAutoPauseInfo;
 
   @Embedded
   private ManualPauseInfo manualPauseInfo;
@@ -233,6 +243,34 @@ public class ShopOperationInfoEntity extends BaseEntity {
       return;
     }
     this.open();
+  }
+
+  public ZonedDateTime getRemoteOperationStartDateTime() {
+    if (this.remoteOperationStartDateTime == null) {
+      return operationStartDateTime;
+    }
+    return remoteOperationStartDateTime;
+  }
+
+  public ZonedDateTime getRemoteOperationEndDateTime() {
+    if (this.remoteOperationEndDateTime == null) {
+      return operationEndDateTime;
+    }
+    return remoteOperationEndDateTime;
+  }
+
+  public ZonedDateTime getRemoteAutoPauseStartDateTime() {
+    if (this.remoteAutoPauseInfo == null) {
+      return null;
+    }
+    return this.remoteAutoPauseInfo.getRemoteAutoPauseStartDateTime();
+  }
+
+  public ZonedDateTime getRemoteAutoPauseEndDateTime() {
+    if (this.remoteAutoPauseInfo == null) {
+      return null;
+    }
+    return this.remoteAutoPauseInfo.getRemoteAutoPauseEndDateTime();
   }
 
 }

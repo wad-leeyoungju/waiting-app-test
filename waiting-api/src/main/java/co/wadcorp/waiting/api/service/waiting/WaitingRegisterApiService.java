@@ -107,7 +107,7 @@ public class WaitingRegisterApiService {
 
   @Transactional
   public WaitingRegisterResponse registerWaiting(String shopId, LocalDate operationDate,
-      WaitingRegisterRequest request) {
+      WaitingRegisterRequest request, String deviceId) {
 
     PhoneNumber phoneNumber = PhoneNumberUtils.ofKr(request.getCustomerPhone());
     checkSimultaneousRegister(shopId, operationDate, phoneNumber);
@@ -184,7 +184,7 @@ public class WaitingRegisterApiService {
     termsCustomerService.saveAllTermsCustomer(termsCustomerEntities);
 
     eventPublisher.publishEvent(
-        new RegisteredEvent(shopId, savedWaitingHistory.getSeq(), operationDate));
+        new RegisteredEvent(shopId, savedWaitingHistory.getSeq(), operationDate, deviceId));
 
     log.info("웨이팅 등록 - 현장, shopId: {}, operationDate: {}, customerSeq: {}, waitingId: {}",
         savedWaitingHistory.getShopId(),

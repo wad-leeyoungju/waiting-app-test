@@ -36,6 +36,7 @@ public enum ErrorCode {
     COULD_NOT_PUT_OFF("COULD_NOT_PUT_OFF", "현재 마지막 순서이기 때문에 미루기가 불가해요"),
     ALL_USED_PUT_OFF_COUNT("ALL_USED_PUT_OFF_COUNT", "미루기 횟수를 이미 모두 사용했습니다."),
     CANNOT_NOT_PUT_OFF_AFTER_CALL("CANNOT_NOT_PUT_OFF_AFTER_CALL", "입장 호출 후에는 미루기가 불가해요."),
+    DISABLE_PUT_OFF("DISABLE_PUT_OFF", "미루기가 불가한 매장이에요."),
 
     /**
      * 웨이팅 착석
@@ -62,6 +63,7 @@ public enum ErrorCode {
     TIME_OVER_UNDO_AVAILABLE_TIME("TIME_OVER_UNDO_AVAILABLE_TIME", "되돌리기 할 수 있는 시간이 지났습니다. 다시 웨이팅 등록을 해주세요."),
     CANNOT_UNDO_CAUSE_SEAT_OPTIONS_MODIFIED("CANNOT_UNDO_CAUSE_SEAT_OPTIONS_MODIFIED", "매장 설정이 변경되어 되돌리기가 불가합니다. 다시 웨이팅을 등록해주세요."),
     OUT_OF_STOCK("OUT_OF_STOCK", "재고 소진으로 주문 불가해요."),
+    NOT_FOUND_ORDER_LINE_ITEM_MENU("NOT_FOUND_ORDER_LINE_ITEM_MENU", "메뉴가 삭제되어 주문 불가해요."),
 
     /**
      * 웨이팅 지연
