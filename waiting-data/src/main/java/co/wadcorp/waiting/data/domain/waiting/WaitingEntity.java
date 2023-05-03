@@ -280,4 +280,12 @@ public class WaitingEntity extends BaseEntity {
         this.waitingDetailStatus = WaitingDetailStatus.READY_TO_ENTER;
     }
 
+    public void cancelByOutOfStock() {
+        WaitingCancelValidator.validateStatus(this);
+
+        WaitingDetailStatus cancelByOutOfStock = WaitingDetailStatus.CANCEL_BY_OUT_OF_STOCK;
+        this.waitingDetailStatus = cancelByOutOfStock;
+        this.waitingStatus = cancelByOutOfStock.getWaitingStatus();
+        this.waitingCompleteDateTime = ZonedDateTimeUtils.nowOfSeoul();
+    }
 }

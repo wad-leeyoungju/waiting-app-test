@@ -27,6 +27,7 @@ public enum WaitingDetailStatus {
     CANCEL_BY_SITTING("웨이팅취소 - 타매장방문", WaitingStatus.CANCEL),
     CANCEL_BY_SHOP("웨이팅취소 - 매장요청", WaitingStatus.CANCEL),
     CANCEL_BY_NO_SHOW("웨이팅취소 - 고객미방문(노쇼)", WaitingStatus.CANCEL),
+    CANCEL_BY_OUT_OF_STOCK("웨이팅취소 - 재고소진", WaitingStatus.CANCEL),
 
     /**
      * EXPIRATION

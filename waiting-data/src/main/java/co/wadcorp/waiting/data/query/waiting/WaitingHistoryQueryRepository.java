@@ -4,6 +4,7 @@ import static co.wadcorp.waiting.data.domain.customer.QCustomerEntity.*;
 import static co.wadcorp.waiting.data.domain.customer.QShopCustomerEntity.*;
 import static co.wadcorp.waiting.data.domain.waiting.QWaitingEntity.*;
 import static co.wadcorp.waiting.data.domain.waiting.QWaitingHistoryEntity.waitingHistoryEntity;
+import static com.querydsl.core.types.Projections.*;
 
 import co.wadcorp.waiting.data.domain.customer.QCustomerEntity;
 import co.wadcorp.waiting.data.domain.customer.QShopCustomerEntity;
@@ -16,6 +17,8 @@ import co.wadcorp.waiting.data.query.waiting.dto.WaitingCalledHistoryDto;
 import co.wadcorp.waiting.data.query.waiting.dto.WaitingHistoriesDto;
 import co.wadcorp.waiting.data.query.waiting.dto.WaitingHistoriesDto.WaitingDto;
 import co.wadcorp.waiting.data.query.waiting.dto.WaitingHistoriesDto.WaitingHistoryDto;
+import co.wadcorp.waiting.data.query.waiting.dto.WaitingHistoryDetailStatusDto;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -91,4 +94,22 @@ public class WaitingHistoryQueryRepository {
     );
   }
 
+  public List<WaitingHistoryDetailStatusDto> findLastWaitingHistoryDetailStatuses(String waitingId,
+      int size) {
+    return queryFactory
+        .select(fields(
+            WaitingHistoryDetailStatusDto.class,
+            waitingHistoryEntity.seq,
+            waitingHistoryEntity.waitingId,
+            waitingHistoryEntity.waitingStatus,
+            waitingHistoryEntity.waitingDetailStatus
+        ))
+        .from(waitingHistoryEntity)
+        .where(
+            waitingHistoryEntity.waitingId.eq(waitingId)
+        )
+        .orderBy(waitingHistoryEntity.seq.desc())
+        .limit(size)
+        .fetch();
+  }
 }

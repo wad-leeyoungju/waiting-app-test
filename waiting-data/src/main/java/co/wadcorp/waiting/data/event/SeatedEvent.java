@@ -4,5 +4,5 @@ import org.springframework.context.ApplicationEvent;
 
 import java.time.LocalDate;
 
-public record SeatedEvent(String shopId, Long waitingHistorySeq, LocalDate operationDate) {
+public record SeatedEvent(String shopId, Long waitingHistorySeq, LocalDate operationDate, String deviceId) {
 }

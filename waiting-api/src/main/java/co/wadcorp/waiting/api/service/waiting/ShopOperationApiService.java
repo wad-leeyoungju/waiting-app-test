@@ -2,6 +2,7 @@ package co.wadcorp.waiting.api.service.waiting;
 
 import co.wadcorp.waiting.api.model.waiting.request.ChangeShopOperationStatusRequest;
 import co.wadcorp.waiting.api.model.waiting.vo.OperationStatus;
+import co.wadcorp.waiting.data.domain.waiting.ShopOperationInfoEntity;
 import co.wadcorp.waiting.data.event.ShopOperationUpdatedEvent;
 import co.wadcorp.waiting.data.service.waiting.ShopOperationInfoService;
 import co.wadcorp.waiting.shared.util.OperationDateUtils;
@@ -47,5 +48,10 @@ public class ShopOperationApiService {
           , request.getPausePeriod());
       eventPublisher.publishEvent(new ShopOperationUpdatedEvent(shopId));
     }
+  }
+
+  public ShopOperationInfoEntity findByShopIdAndOperationDate(String waitingShopId,
+      LocalDate operationDate) {
+    return shopOperationInfoService.findByShopIdAndOperationDate(waitingShopId, operationDate);
   }
 }

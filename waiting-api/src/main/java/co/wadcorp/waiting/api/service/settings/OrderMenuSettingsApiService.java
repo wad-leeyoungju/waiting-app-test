@@ -192,6 +192,7 @@ public class OrderMenuSettingsApiService {
     );
   }
 
+  @Transactional
   public void delete(String menuId) {
     categoryMenuService.removeMapping(menuId);
 
