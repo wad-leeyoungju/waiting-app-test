@@ -45,6 +45,7 @@ public class RemoteWaitingController {
       @ShopId ChannelShopIdMapping channelShopIdMapping,
       @Valid @RequestBody RemoteWaitingRegisterRequest request
   ) {
+    System.out.println("test~!~!");
 
     return ApiResponse.ok(remoteWaitingRegisterApiService.register(
         channelShopIdMapping,

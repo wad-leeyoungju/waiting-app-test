@@ -83,6 +83,7 @@ public class RemoteWaitingRegisterApiService {
       RemoteWaitingRegisterServiceRequest request
   ) {
     channelShopIdMapping.checkOnlyOneShopId();
+    System.out.println("job1!@~!~!");
     String waitingShopId = channelShopIdMapping.getFirstWaitingShopId();
 
     ShopOperationInfoEntity shopOperationInfoEntity =
